@@ -21,6 +21,7 @@ public class ListaArreglo {
 	}
 
 	private void cargarUsuarios(String pathCarga, boolean imprimir) {
+		Date init = new Date();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios = csvr.reader(pathCarga);
 		int temp = size;
@@ -31,6 +32,9 @@ public class ListaArreglo {
 					duplicateArrayLength();
 				}
 				this.users[size] = usuarios.get(i);
+				Date end = new Date();
+				long result = end.getTime() - init.getTime();
+				guardarTiempo(this.users[size], 3000000, result);
 				size++;
 
 			}
@@ -49,7 +53,6 @@ public class ListaArreglo {
 	}
 
 	private void duplicateArrayLength() {
-		System.out.println("El tamaño actual del arreglo está por ser: " + this.users.length * 2);
 		Usuario[] usersTemp = new Usuario[this.users.length * 2];
 		for (int i = 0; i < this.users.length; i++) {
 			usersTemp[i] = this.users[i];
@@ -62,25 +65,19 @@ public class ListaArreglo {
 	}
 
 	public void buscarUsuarios(String pathSearch) {
-		Mergesort m = new Mergesort();
-		m.sort(this);
-		for (int i = 0; i < this.users.length; i++) {
-			System.out.println(this.users[i].getUserId());
+		Buscador busqueda = new Buscador(this);////PREGUNTAR POR CLONAR
+		if(!ordenado){
+			Mergesort m = new Mergesort();
+			m.sort(this);
+			ordenado = true;
 		}
+		
 		ArrayList<Usuario> usersQuery = new ArrayList<Usuario>();
 		usersQuery = this.csvr.reader(pathSearch);
+		Date init = new Date();
 		for (Usuario user : usersQuery) {
 			user.setExists(false);
-			boolean found = false;
-			int i = 0;
-			Date init = new Date();
-			while (!found && (i < users.length) && users[i] != null) {
-				if (users[i].getUserId().equals(user.getUserId())) {
-					found = true;
-					user.setExists(true);
-				}
-				i++;
-			}
+			user.setExists(busqueda.buscarUsuario(user));
 			Date end = new Date();
 			long result = end.getTime() - init.getTime();
 			int size;
@@ -113,6 +110,9 @@ public class ListaArreglo {
 
 	public int getSize() {
 		return size;
+	}
+	public Usuario getUsuarioAt(int pos){
+		return users[pos];
 	}
 
 	public void altaUsuarios(String pathAlta) {
