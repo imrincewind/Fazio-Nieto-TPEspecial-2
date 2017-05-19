@@ -1,0 +1,4 @@
+1952 escenario A busqueda
+31067 escenario B alta
+84 escenario B busqueda
+102 escenario A alta

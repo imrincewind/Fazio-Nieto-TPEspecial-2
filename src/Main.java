@@ -2,15 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
-	// binarizar la busqueda
-	// formas de optimizar, 1- fijarnos el size del arraylist a agregar/cargar
-	// usuarios y en base al tamaño ejecutar
-	// distintos metodos (numero chico, insertarOrdenado, numero grande ordenar
-	// antes de buscar)
-	// otra forma de optimizar, ordenar la lista a buscar (además de ordenar los
-	// ya cargados) y podar en base a que
-	// no recorra indices menores al índice del último encontrado
-	// C:\TUDAI-ws\Fazio-Nieto-TPEspecial-2\datasets
+	
 	final static String pathBusqueda = "C:/TUDAI-ws/Fazio-Nieto-TPEspecial-2/datasets/dataset_busqueda_10000.csv";
 	final static String pathInsert = "C:/TUDAI-ws/Fazio-Nieto-TPEspecial-2/datasets/dataset_insert_10000.csv";
 	final static String path2 = "C:/TUDAI-ws/Fazio-Nieto-TPEspecial-2/datasets/dataset_2.csv";
@@ -33,7 +25,7 @@ public class Main {
 		// escenario A Pocas inserciones Muchas busquedas
 		ListaArreglo a = new ListaArreglo(pathInsert, resultBusqueda_escenarioA, resultAlta_escenarioA);
 		a.altaUsuarios(pathBusqueda);
-		//a.buscarUsuarios(path3m);
+		a.buscarUsuarios(path3m);
 		// escenario B Muchas inserciones pocas busquedas
 		ListaArreglo b = new ListaArreglo(pathInsert, resultBusqueda_escenarioB, resultAlta_escenarioB);
 		b.altaUsuarios(path3m);
